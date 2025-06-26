@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:qr_auto_fill_form/qr_auto_fill_form.dart';
 
 void main() {
-  runApp(const QRExampleApp());
+  runApp(const MyApp());
 }
 
-class QRExampleApp extends StatelessWidget {
-  const QRExampleApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'QR Auto Fill Example',
-      theme: ThemeData(primarySwatch: Colors.teal),
+      theme: ThemeData(primarySwatch: Colors.purple),
       home: const QRFormExamplePage(),
     );
   }
@@ -67,13 +67,6 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
       controller: carController,
       transform: (value) => value.toString().toUpperCase(),
     );
-
-    qrFormController.registerField(key: 'dob', controller: dobController);
-
-    qrFormController.registerField(
-      key: 'membership_date',
-      controller: membershipDateController,
-    );
   }
 
   @override
@@ -91,44 +84,7 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('QR Auto Fill Demo'),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: QRScannerButton(
-              
-              controller: qrFormController,
-              buttonText: "Scan to Autofill",
-              icon: Icons.document_scanner_outlined,
-              successMessage: 'Form data loaded from QR',
-              errorMessage: 'Invalid QR format. Please try again.',
-              showConfirmation: true,
-              confirmationTitle: 'Confirm Auto-Fill',
-              confirmationContent:
-                  'Do you want to fill the form with this data?',
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.blue.shade800,
-                backgroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                textStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(color: Colors.blue.shade200),
-                ),
-                elevation: 1,
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('QR Auto Fill Demo'), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Form(
@@ -163,32 +119,27 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                 label: 'Vehicle Model',
                 icon: Icons.directions_car_outlined,
               ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: dobController,
-                label: 'Date of Birth',
-                icon: Icons.cake_outlined,
-                readOnly: true,
-              ),
-              const SizedBox(height: 16),
-              _buildTextField(
-                controller: membershipDateController,
-                label: 'Membership Date',
-                icon: Icons.date_range_outlined,
-                readOnly: true,
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _submitForm,
+              const SizedBox(height: 50),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.qr_code_scanner),
+                label: const Text("Scan & Auto Fill"),
+                onPressed: () {
+                  launchQRFormScanner(
+                    context: context,
+                    controller: qrFormController,
+                    onBeforeScan: () {},
+                    showConfirmation: true,
+                    confirmTitle: "Auto-Fill",
+                    confirmContent: "Use scanned data to fill the form?",
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 14,
                   ),
-                ),
-                child: const Text(
-                  'SUBMIT FORM',
-                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ],
@@ -224,16 +175,5 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
         return null;
       },
     );
-  }
-
-  void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Form submitted successfully!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-    }
   }
 }

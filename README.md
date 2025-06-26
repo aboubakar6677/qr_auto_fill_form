@@ -1,39 +1,33 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# qr_auto_fill_form
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+[![pub package](https://img.shields.io/pub/v/qr_auto_fill_form.svg)](https://pub.dev/packages/qr_auto_fill_form)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub Repo stars](https://img.shields.io/github/stars/aboubakar6677/qr_auto_fill_form?style=social)](https://github.com/aboubakar6677/qr_auto_fill_form)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+---
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## ✨ Overview
 
-## Features
+`qr_auto_fill_form` is a customizable Flutter package that lets users scan QR codes and automatically populate form fields with the decoded data. Ideal for forms in onboarding, vehicle rental, check-ins, ID entry, or automated data collection workflows.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+---
 
-## Getting started
+## 🚀 Features
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- ✅ Full-screen, professional QR scanner screen
+- ✅ Auto-fills text fields based on scanned QR JSON data
+- ✅ Supports clearing fields before scan
+- ✅ Optional confirmation dialog before applying scanned data
+- ✅ Easy integration into existing forms
+- ✅ Supports field-level transformations and validation hooks
+- ✅ Works out-of-the-box with `TextEditingController`s
 
-## Usage
+---
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+## 📦 Installation
 
-```dart
-const like = 'sample';
-```
+Add the following to your `pubspec.yaml`:
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+dependencies:
+  qr_auto_fill_form: ^1.0.0

@@ -1,20 +1,3 @@
-// import 'package:flutter/material.dart';
-
-// class QRFormAutoFillController {
-//   final Map<String, TextEditingController> _fieldMap = {};
-
-//   void registerField(String key, TextEditingController controller) {
-//     _fieldMap[key] = controller;
-//   }
-
-//   void fillFromQRData(Map<String, dynamic> data) {
-//     data.forEach((key, value) {
-//       if (_fieldMap.containsKey(key)) {
-//         _fieldMap[key]?.text = value?.toString() ?? '';
-//       }
-//     });
-//   }
-// }
 import 'package:flutter/material.dart';
 
 /// A controller for managing form auto-filling from QR code data
@@ -93,5 +76,13 @@ class QRFormAutoFillController {
     _transformers.clear();
     _requiredFields.clear();
     _disposed = true;
+  }
+}
+
+extension ClearableForm on QRFormAutoFillController {
+  void clearAll() {
+    for (final controller in _fieldMap.values) {
+      controller.clear();
+    }
   }
 }
