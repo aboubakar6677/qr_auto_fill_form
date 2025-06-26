@@ -1,7 +1,7 @@
 name: qr_auto_fill_form
 description: A customizable Flutter package to scan QR codes and auto-fill form fields.
 version: 1.0.1
-homepage: https://github.com/aboubakar6677/qr_auto_fill_form
+homepage: https://pub.dev/packages/qr_auto_fill_form
 repository: https://github.com/aboubakar6677/qr_auto_fill_form
 issue_tracker: https://github.com/aboubakar6677/qr_auto_fill_form/issues
 
