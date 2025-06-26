@@ -7,3 +7,5 @@
   - Confirmation dialog before filling
   - Custom field registration and transformation support
   - Works with `TextEditingController`s
+
+- Improved `_parseKeyValue` to support int, double, and bool type parsing.
