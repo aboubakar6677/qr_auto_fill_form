@@ -31,3 +31,67 @@ Add the following to your `pubspec.yaml`:
 ```yaml
 dependencies:
   qr_auto_fill_form: ^1.0.0
+
+Then run:
+flutter pub get
+
+💡 Usage
+1. Register your form fields
+final qrFormController = QRFormAutoFillController();
+
+@override
+void initState() {
+  super.initState();
+
+  qrFormController.registerField('name', nameController);
+  qrFormController.registerField('email', emailController);
+  qrFormController.registerField('license_no', licenseController);
+  qrFormController.registerField('car', carController);
+}
+
+2. Trigger QR scan and auto-fill
+ElevatedButton(
+  onPressed: () {
+    launchQRFormScanner(
+      context: context,
+      controller: qrFormController,
+      onBeforeScan: () {
+        nameController.clear();
+        emailController.clear();
+        licenseController.clear();
+        carController.clear();
+      },
+      showConfirmation: true,
+      confirmTitle: 'Auto-Fill Form',
+      confirmContent: 'Do you want to use this scanned data?',
+    );
+  },
+  child: const Text('Scan & Fill'),
+);
+
+🔄 Example QR JSON
+Your QR code should encode a JSON object like:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "license_no": "LHR-789",
+  "car": "ABC-123"
+}
+
+📁 Example Project
+View the example here:
+👉 example/lib/main.dart
+
+cd example
+flutter run
+
+🔗 Links
+📦 Pub.dev Package
+
+🐙 GitHub Repository
+
+🐞 Issue Tracker
+
+📄 License
+This project is licensed under the MIT License.
+Copyright © 2024 Abou Bakar
