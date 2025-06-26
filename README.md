@@ -14,13 +14,13 @@
 
 ## 🚀 Features
 
-- ✅ Full-screen, professional QR scanner screen
-- ✅ Auto-fills text fields based on scanned QR JSON data
-- ✅ Supports clearing fields before scan
-- ✅ Optional confirmation dialog before applying scanned data
-- ✅ Easy integration into existing forms
-- ✅ Supports field-level transformations and validation hooks
-- ✅ Works out-of-the-box with `TextEditingController`s
+- ✅ Full-screen, professional QR scanner screen  
+- ✅ Auto-fills text fields based on scanned QR JSON data  
+- ✅ Supports clearing fields before scan  
+- ✅ Optional confirmation dialog before applying scanned data  
+- ✅ Easy integration into existing forms  
+- ✅ Supports field-level transformations and validation hooks  
+- ✅ Works out-of-the-box with `TextEditingController`s  
 
 ---
 
@@ -31,12 +31,14 @@ Add the following to your `pubspec.yaml`:
 ```yaml
 dependencies:
   qr_auto_fill_form: ^1.0.0
+```
 
-Then run:
-flutter pub get
 
-💡 Usage
-1. Register your form fields
+## 🛠️ Usage
+
+## 1. Register your form fields
+
+```
 final qrFormController = QRFormAutoFillController();
 
 @override
@@ -48,8 +50,11 @@ void initState() {
   qrFormController.registerField('license_no', licenseController);
   qrFormController.registerField('car', carController);
 }
+```
 
-2. Trigger QR scan and auto-fill
+## 2. Trigger QR scan and auto-fill
+
+```
 ElevatedButton(
   onPressed: () {
     launchQRFormScanner(
@@ -68,30 +73,24 @@ ElevatedButton(
   },
   child: const Text('Scan & Fill'),
 );
+```
 
-🔄 Example QR JSON
-Your QR code should encode a JSON object like:
+## 🔄 Example QR JSON
+
 {
-  "name": "John Doe",
-  "email": "john@example.com",
-  "license_no": "LHR-789",
-  "car": "ABC-123"
+  "name": "ABC",
+  "email": "ab.dev.pk@gmail.com",
+  "numbers": 123,
+  "profession": "Development"
 }
 
-📁 Example Project
-View the example here:
-👉 example/lib/main.dart
+## 🔄 Example keyValue
 
-cd example
-flutter run
+name=ABC;email=ab.dev.pk@gmail.com;numbers=123;profession=Development
 
-🔗 Links
-📦 Pub.dev Package
 
-🐙 GitHub Repository
+## 📄 License
 
-🐞 Issue Tracker
-
-📄 License
 This project is licensed under the MIT License.
 Copyright © 2024 Abou Bakar
+
