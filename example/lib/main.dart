@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'QR Auto Fill Example',
       theme: ThemeData(primarySwatch: Colors.purple),
       home: const QRFormExamplePage(),
@@ -29,13 +30,10 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
   final qrFormController = QRFormAutoFillController();
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final licenseController = TextEditingController();
-  final carController = TextEditingController();
-  final dobController = TextEditingController();
-  final membershipDateController = TextEditingController();
+  final phoneController = TextEditingController();
+  final interestController = TextEditingController();
 
   @override
   void initState() {
@@ -44,27 +42,15 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
   }
 
   void _registerFields() {
-    qrFormController.registerField(
-      key: 'name',
-      controller: nameController,
-      required: true,
-    );
+    qrFormController.registerField(key: 'name', controller: nameController, required: true);
+
+    qrFormController.registerField(key: 'email', controller: emailController, required: true);
+
+    qrFormController.registerField(key: 'numbers', controller: phoneController, required: true);
 
     qrFormController.registerField(
-      key: 'email',
-      controller: emailController,
-      required: true,
-    );
-
-    qrFormController.registerField(
-      key: 'license_no',
-      controller: licenseController,
-      required: true,
-    );
-
-    qrFormController.registerField(
-      key: 'car',
-      controller: carController,
+      key: 'profession',
+      controller: interestController,
       transform: (value) => value.toString().toUpperCase(),
     );
   }
@@ -74,10 +60,8 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
     qrFormController.dispose();
     nameController.dispose();
     emailController.dispose();
-    licenseController.dispose();
-    carController.dispose();
-    dobController.dispose();
-    membershipDateController.dispose();
+    phoneController.dispose();
+    interestController.dispose();
     super.dispose();
   }
 
@@ -104,18 +88,17 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                 label: 'Email Address',
                 icon: Icons.email_outlined,
                 isRequired: true,
-                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
               _buildTextField(
-                controller: licenseController,
+                controller: phoneController,
                 label: 'License Number',
                 icon: Icons.badge_outlined,
                 isRequired: true,
               ),
               const SizedBox(height: 16),
               _buildTextField(
-                controller: carController,
+                controller: interestController,
                 label: 'Vehicle Model',
                 icon: Icons.directions_car_outlined,
               ),
@@ -128,6 +111,7 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                     context: context,
                     controller: qrFormController,
                     onBeforeScan: () {},
+                    format: QRDataFormat.json,
                     showConfirmation: true,
                     confirmTitle: "Auto-Fill",
                     confirmContent: "Use scanned data to fill the form?",
@@ -136,10 +120,7 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 14,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 ),
               ),
             ],
@@ -154,8 +135,6 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
     required String label,
     required IconData icon,
     bool isRequired = false,
-    bool readOnly = false,
-    TextInputType? keyboardType,
   }) {
     return TextFormField(
       controller: controller,
@@ -163,17 +142,7 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
         labelText: label + (isRequired ? ' *' : ''),
         prefixIcon: Icon(icon, size: 20),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-        filled: readOnly,
-        fillColor: readOnly ? Colors.grey.shade100 : null,
       ),
-      readOnly: readOnly,
-      keyboardType: keyboardType,
-      validator: (value) {
-        if (isRequired && (value == null || value.isEmpty)) {
-          return 'This field is required';
-        }
-        return null;
-      },
     );
   }
 }
