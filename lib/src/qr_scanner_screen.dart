@@ -4,7 +4,7 @@ import 'qr_auto_fill_controller.dart';
 import 'dart:convert';
 
 Future<void> launchQRFormScanner({
-  required BuildContext context,
+  required context,
   required QRFormAutoFillController controller,
   VoidCallback? onBeforeScan, // optional: clear fields etc.
   bool showConfirmation = false,
@@ -130,10 +130,12 @@ class _QRScannerScreenState extends State<QRScannerScreen>
     _controller = controller;
     setState(() => _isCameraLoading = false);
 
-    _controller?.scannedDataStream.listen((scanData) {
+    _controller?.scannedDataStream.listen((scanData) async {
       if (!_hasScanned && scanData.code != null) {
         _hasScanned = true;
-        _controller?.pauseCamera();
+        await _controller?.pauseCamera();
+
+        if (!mounted) return; // ✅ Guard context
         Navigator.pop(context, scanData.code);
       }
     });
