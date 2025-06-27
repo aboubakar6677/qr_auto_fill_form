@@ -47,8 +47,8 @@ void initState() {
 
   qrFormController.registerField('name', nameController);
   qrFormController.registerField('email', emailController);
-  qrFormController.registerField('license_no', licenseController);
-  qrFormController.registerField('car', carController);
+  qrFormController.registerField('numbers', numberController);
+  qrFormController.registerField('profession', professionController);
 }
 ```
 
