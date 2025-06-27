@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.0.2
 
 - Initial release of `qr_auto_fill_form`.
 - Features:

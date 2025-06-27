@@ -2,9 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+/// Format of raw QR string data.
+///
+/// - [json]: JSON-encoded string like `{"name": "John"}`
+/// - [keyValue]: Key-value format like `name=John;email=john@example.com`
+
 enum QRDataFormat { json, keyValue }
 
+/// A typedef for providing a custom parser function for QR raw string input.
+/// Should return a Map of key-value pairs that match registered field keys.
 typedef CustomQRParser = Map<String, dynamic> Function(String rawData);
+
+
+/// Controller to auto-fill registered text fields using parsed QR data.
+///
+/// Supports multiple formats including JSON, key-value, and custom parsers.
 
 class QRFormAutoFillController {
   final Map<String, TextEditingController> _fieldMap = {};
@@ -18,6 +30,9 @@ class QRFormAutoFillController {
 
   bool _disposed = false;
 
+
+/// Creates a [QRFormAutoFillController] with optional QR format config,
+/// a custom parser, field order (for delimited values), and delimiter.
   QRFormAutoFillController({
     this.defaultFormat = QRDataFormat.json,
     this.delimitedOrder = const [],
@@ -25,6 +40,11 @@ class QRFormAutoFillController {
     this.customParser,
   });
 
+
+/// Registers a form field with a [TextEditingController] under a specific key.
+/// 
+/// [transform] allows you to convert raw values (e.g., to uppercase, format dates).
+/// [required] ensures that this field must exist in parsed QR data.
   void registerField({
     required String key,
     required TextEditingController controller,
@@ -36,18 +56,28 @@ class QRFormAutoFillController {
     if (required) _requiredFields.add(key);
   }
 
+
+/// Unregisters a form field and removes its transformer and required flag (if set).
   void unregisterField(String key) {
     _fieldMap.remove(key);
     _transformers.remove(key);
     _requiredFields.remove(key);
   }
 
+
+/// Clears all registered fields, transformers, and required keys.
+/// Does not clear field values in UI — use [clearAll] for that.
   void clearFields() {
     _fieldMap.clear();
     _transformers.clear();
     _requiredFields.clear();
   }
 
+
+/// Parses raw QR string and fills all registered fields if matching keys exist.
+/// 
+/// Throws [FormatException] if a required field is missing.
+/// You may override the default format using [format].
   void fillFromRawQRData(String raw, {QRDataFormat? format}) {
     if (_disposed) throw StateError('Controller has been disposed');
 
@@ -112,6 +142,7 @@ class QRFormAutoFillController {
     return map;
   }
 
+/// Disposes the controller by clearing internal maps and marking it inactive.
   void dispose() {
     _fieldMap.clear();
     _transformers.clear();
@@ -119,6 +150,8 @@ class QRFormAutoFillController {
     _disposed = true;
   }
 
+
+/// Clears text in all currently registered.
   void clearAll() {
     for (final controller in _fieldMap.values) {
       controller.clear();

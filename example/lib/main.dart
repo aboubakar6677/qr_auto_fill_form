@@ -42,11 +42,23 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
   }
 
   void _registerFields() {
-    qrFormController.registerField(key: 'name', controller: nameController, required: true);
+    qrFormController.registerField(
+      key: 'name',
+      controller: nameController,
+      required: true,
+    );
 
-    qrFormController.registerField(key: 'email', controller: emailController, required: true);
+    qrFormController.registerField(
+      key: 'email',
+      controller: emailController,
+      required: true,
+    );
 
-    qrFormController.registerField(key: 'numbers', controller: phoneController, required: true);
+    qrFormController.registerField(
+      key: 'numbers',
+      controller: phoneController,
+      required: true,
+    );
 
     qrFormController.registerField(
       key: 'profession',
@@ -120,7 +132,10 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 14,
+                  ),
                 ),
               ),
             ],

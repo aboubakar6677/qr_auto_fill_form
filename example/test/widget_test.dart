@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:example/main.dart';
 
 void main() {
-  testWidgets('App loads and shows QR scan button', (WidgetTester tester) async {
+  testWidgets('App loads and shows QR scan button', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const MyApp());
 
     // Expect to find a button with text or icon

@@ -30,7 +30,10 @@ Future<void> launchQRFormScanner({
             context: context,
             builder: (_) => AlertDialog(
               title: Text(confirmTitle ?? 'Confirm Auto-Fill'),
-              content: Text(confirmContent ?? 'Do you want to fill the form with this data?'),
+              content: Text(
+                confirmContent ??
+                    'Do you want to fill the form with this data?',
+              ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context, false),
@@ -51,7 +54,9 @@ Future<void> launchQRFormScanner({
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(successMessage)));
       } catch (e) {
         debugPrint('Error parsing QR data: $e');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(errorMessage)));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(errorMessage)));
       }
     }
   } catch (e) {
@@ -92,7 +97,8 @@ class QRScannerScreen extends StatefulWidget {
   State<QRScannerScreen> createState() => _QRScannerScreenState();
 }
 
-class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProviderStateMixin {
+class _QRScannerScreenState extends State<QRScannerScreen>
+    with SingleTickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? _controller;
   bool _isFlashOn = false;
@@ -104,13 +110,14 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2))
-      ..repeat(reverse: true);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
 
-    _animation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
   }
 
   @override
@@ -148,7 +155,10 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
       alignment: Alignment.center,
       children: [
         ColorFiltered(
-          colorFilter: ColorFilter.mode(Colors.black.withAlpha(100), BlendMode.srcOut),
+          colorFilter: ColorFilter.mode(
+            Colors.black.withAlpha(100),
+            BlendMode.srcOut,
+          ),
           child: Stack(
             children: [
               Container(
@@ -232,7 +242,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
             ),
           ),
           _buildOverlay(),
-          if (_isCameraLoading) const Center(child: CircularProgressIndicator()),
+          if (_isCameraLoading)
+            const Center(child: CircularProgressIndicator()),
           if (widget.showCloseButton)
             Positioned(
               bottom: 30,
@@ -245,7 +256,9 @@ class _QRScannerScreenState extends State<QRScannerScreen> with SingleTickerProv
                   backgroundColor: Colors.redAccent,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 onPressed: () {
                   _controller?.stopCamera();
