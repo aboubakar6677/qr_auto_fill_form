@@ -29,7 +29,6 @@ class QRFormExamplePage extends StatefulWidget {
 
 class _QRFormExamplePageState extends State<QRFormExamplePage> {
   final qrFormController = QRFormAutoFillController();
-  final Map<String, TextEditingController> _fieldMap = {};
   final _formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();

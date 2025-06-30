@@ -16,7 +16,7 @@
 
 - ✅ Full-screen, professional QR scanner screen  
 - ✅ Auto-fills text fields based on scanned QR JSON data  
-- ✅ Generate QR code from current form data (as JSON or key-value)
+- ✅ Generate QR-ready data (JSON or keyValue) to use in any QR code generator
 - ✅ Copy or display QR data for reuse or sharing
 - ✅ Supports clearing fields before scan  
 - ✅ Optional confirmation dialog before applying scanned data  
@@ -76,7 +76,7 @@ ElevatedButton(
   child: const Text('Scan & Fill'),
 );
 ```
-## 3. Generate QR from Form Data
+## 3. Generate QR-ready data (JSON or keyValue) to use in any QR code generator
 You can also generate a QR string (JSON or key-value) from currently entered form data:
 
 ```
