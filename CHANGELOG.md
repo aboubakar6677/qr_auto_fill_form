@@ -1,11 +1,21 @@
-## 1.0.2
+## [1.1.0] - 2025-06-26
 
-- Initial release of `qr_auto_fill_form`.
-- Features:
-  - Full-screen QR scanner
-  - Auto-fill form fields from QR JSON
-  - Confirmation dialog before filling
-  - Custom field registration and transformation support
-  - Works with `TextEditingController`s
+### ✨ New Features
+- Added support for generating QR data from form fields.
+  - Supports both JSON and key-value output formats.
+  - Ideal for creating QR codes to share or scan later.
+- Introduced `generateQRData()` method in `QRFormAutoFillController`.
 
-- Improved `_parseKeyValue` to support int, double, and bool type parsing.
+### 🛠 Improvements
+- Enhanced `_parseKeyValue` to support type parsing for `int`, `double`, and `bool`.
+- Updated documentation and inline Dartdoc comments for better code understanding and pub score.
+- Added example usage for QR generation and scanning.
+- Added support for copying the generated QR string (manually via `Clipboard.setData` in example).
+
+### ✅ Existing Highlights
+- Full-screen QR scanner screen with custom UI.
+- Auto-fills registered form fields from scanned QR content.
+- Supports JSON and key-value formats.
+- Optional confirmation dialog before applying scanned data.
+- Field-level transformers and validation support.
+- Clean integration with `TextEditingController`s.

@@ -16,6 +16,8 @@
 
 - ✅ Full-screen, professional QR scanner screen  
 - ✅ Auto-fills text fields based on scanned QR JSON data  
+- ✅ Generate QR code from current form data (as JSON or key-value)
+- ✅ Copy or display QR data for reuse or sharing
 - ✅ Supports clearing fields before scan  
 - ✅ Optional confirmation dialog before applying scanned data  
 - ✅ Easy integration into existing forms  
@@ -30,7 +32,7 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  qr_auto_fill_form: ^1.0.0
+  qr_auto_fill_form: ^1.1.0
 ```
 
 
@@ -74,6 +76,21 @@ ElevatedButton(
   child: const Text('Scan & Fill'),
 );
 ```
+## 3. Generate QR from Form Data
+You can also generate a QR string (JSON or key-value) from currently entered form data:
+
+```
+final data = qrFormController.generateQRData(
+  format: QRDataFormat.json, // or QRDataFormat.keyValue
+);
+```
+## 📋 Pro Tip:
+
+Even if you don’t want to use a visual QR code, you can still show the formatted string and let users:
+
+Copy it
+Share it via apps like WhatsApp/Email
+Store it in a database
 
 ## 🔄 Example QR JSON
 

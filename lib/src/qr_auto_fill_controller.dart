@@ -68,6 +68,29 @@ class QRFormAutoFillController {
     _requiredFields.clear();
   }
 
+  /// Generates a string representation of registered fields
+  /// in either JSON or key-value format, suitable for QR generation.
+  ///
+  /// [format] determines the output style.
+  /// Returns a formatted string like:
+  /// - JSON: {"name":"John","email":"abc@example.com" }
+  /// - Key-Value: name=John;email=abc@example.com
+  String generateQRData({QRDataFormat format = QRDataFormat.json}) {
+    final data = <String, dynamic>{};
+
+    for (final entry in _fieldMap.entries) {
+      final value = entry.value.text.trim();
+      if (value.isNotEmpty) data[entry.key] = value;
+    }
+
+    switch (format) {
+      case QRDataFormat.json:
+        return json.encode(data);
+      case QRDataFormat.keyValue:
+        return data.entries.map((e) => '${e.key}=${e.value}').join(';');
+    }
+  }
+
   /// Parses raw QR string and fills all registered fields if matching keys exist.
   ///
   /// Throws [FormatException] if a required field is missing.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qr_auto_fill_form/qr_auto_fill_form.dart';
 
 void main() {
@@ -28,12 +29,14 @@ class QRFormExamplePage extends StatefulWidget {
 
 class _QRFormExamplePageState extends State<QRFormExamplePage> {
   final qrFormController = QRFormAutoFillController();
+  final Map<String, TextEditingController> _fieldMap = {};
   final _formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final interestController = TextEditingController();
+  String? qrData;
 
   @override
   void initState() {
@@ -115,9 +118,7 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                 icon: Icons.directions_car_outlined,
               ),
               const SizedBox(height: 50),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.qr_code_scanner),
-                label: const Text("Scan & Auto Fill"),
+              ElevatedButton(
                 onPressed: () {
                   launchQRFormScanner(
                     context: context,
@@ -130,14 +131,115 @@ class _QRFormExamplePageState extends State<QRFormExamplePage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.blueAccent,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 14,
                   ),
                 ),
+                child: const Text("Scan & Auto Fill"),
               ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  final data = qrFormController.generateQRData(
+                    format: QRDataFormat.json,
+                  );
+                  setState(() {
+                    qrData = data;
+                  });
+                },
+
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 14,
+                  ),
+                ),
+                child: const Text("Generate Json"),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  final data = qrFormController.generateQRData(
+                    format: QRDataFormat.keyValue,
+                  );
+                  setState(() {
+                    qrData = data;
+                  });
+                },
+
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 14,
+                  ),
+                ),
+
+                child: const Text("Generate KeyValue"),
+              ),
+
+              SizedBox(height: 10),
+
+              if (qrData != null && qrData!.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '📌 Copy this QR string and use any package (e.g. `qr_flutter`) to render it as a QR code.',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SelectableText(
+                            qrData!,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton.icon(
+                              onPressed: () {
+                                Clipboard.setData(
+                                  ClipboardData(text: qrData ?? ""),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'QR data copied to clipboard',
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.copy, size: 16),
+                              label: const Text('Copy'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
