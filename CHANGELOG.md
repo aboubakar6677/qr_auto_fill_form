@@ -1,4 +1,4 @@
-## [1.1.0] - 2025-06-26
+## [1.1.1] - 2025-06-26
 
 ### ✨ New Features
 - Added support for generating QR data from form fields.

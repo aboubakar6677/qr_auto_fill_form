@@ -32,7 +32,7 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  qr_auto_fill_form: ^1.1.0
+  qr_auto_fill_form: ^1.1.1
 ```
 
 
